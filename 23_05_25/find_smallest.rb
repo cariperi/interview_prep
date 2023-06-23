@@ -5,6 +5,12 @@ def smallest(n)
   d = number.min
   i = number.find_index(d)
 
+  if i.zero?
+    number_without_first = number[1..-1]
+    d = number_without_first.min
+    i = number.find_index(d)
+  end
+
   number.delete_at(i)
 
   smallest_number = n
@@ -12,10 +18,11 @@ def smallest(n)
 
   (number.length + 1).times do |index|
     number.insert(index, d)
-    if number.join.to_i < smallest_number
+    if number.join.to_i <= smallest_number
       smallest_number = number.join.to_i
       j = index
     end
+    number.delete_at(index)
   end
 
   [smallest_number, i, j]
